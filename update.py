@@ -18,7 +18,7 @@ app = 'HuaWei-AnyOffice/1.0.0/cn.edu.hit.welink'
 option = webdriver.ChromeOptions()
 option.headless = True
 option.add_argument('user-agent='+ua)
-s=Service("chromedriver.exe")
+s=Service("/usr/bin/chromedriver")
 driver = webdriver.Chrome(service=s)
 
 print('正在上报')
