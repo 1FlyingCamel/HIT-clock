@@ -71,7 +71,7 @@ def yzm():
 		print(e)
 
 success = False
-for i in range (0, 1):
+for i in range (0, 5):
 	try:
 		driver.get('https://xg.hit.edu.cn/zhxy-xgzs/xg_mobile/xsMrsbNew/edit')
 		sleep(5)
