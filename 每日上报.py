@@ -85,7 +85,7 @@ for i in range (0, 5):
 		driver.execute_script(f'kzl10 = "{LOCATION}"')
 # 		driver.execute_script('document.getElementById("kzl18-0").checked = true')
 # 		driver.execute_script('document.getElementById("kzl32-2").checked = true')
-		tryClick("txfscheckbox")
+#               tryClick("txfscheckbox")
 		tryClick("txfscheckbox1")
 		tryClick("txfscheckbox2")
 		tryClick("txfscheckbox3")
