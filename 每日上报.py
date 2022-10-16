@@ -87,7 +87,7 @@ for i in range (0, 5):
 		print('运行到LOCATION')
 # 		driver.execute_script('document.getElementById("kzl18-0").checked = true')
 # 		driver.execute_script('document.getElementById("kzl32-2").checked = true')
-                tryClick("txfscheckbox")
+		tryClick("txfscheckbox")
 		print('运行到txfscheckbox')
 		tryClick("txfscheckbox1")
 		print('运行到txfscheckbox1')
