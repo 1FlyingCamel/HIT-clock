@@ -19,7 +19,7 @@ option = webdriver.ChromeOptions()
 option.headless = True
 option.add_argument('user-agent='+ua)
 s=Service("/usr/bin/chromedriver")
-driver = webdriver.Chrome(service=s, options = option)
+driver = webdriver.Chrome(service=s)
 
 print('正在上报')
 
