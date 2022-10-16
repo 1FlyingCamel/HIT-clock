@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from PIL import Image
 import ddddocr
 
@@ -17,7 +18,8 @@ app = 'HuaWei-AnyOffice/1.0.0/cn.edu.hit.welink'
 option = webdriver.ChromeOptions()
 option.headless = True
 option.add_argument('user-agent='+ua)
-driver = webdriver.Chrome(executable_path= '/usr/bin/chromedriver', options = option)
+s=Service("chromedriver.exe")
+driver = webdriver.Chrome(service=s)
 
 print('正在上报')
 
