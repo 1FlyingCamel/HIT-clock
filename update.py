@@ -32,6 +32,7 @@ driver.execute_cdp_cmd(
         "permissions": ["geolocation"]
     },
 )
+driver.execute_cdp_cmd('Emulation.setUserAgentOverride', {"userAgent": ua + ' ' + app})
 driver.execute_cdp_cmd("Emulation.setGeolocationOverride", {
 	"latitude": Location[0],
 	"longitude": Location[1],
