@@ -9,19 +9,43 @@ from selenium.webdriver.chrome.service import Service
 from PIL import Image
 import ddddocr
 
+USERNAME= '21B902013'
+PASSWORD= 'Aa2303831.'
+LOCATION= "黑龙江省哈尔滨市南岗区"
+Location=[45.59777,126.63729]
+
 print('初始化浏览器')
-USERNAME   = os.environ['ID']
-PASSWORD   = os.environ['PASSWORD']
-LOCATION   = os.environ['LOCATION']
 ua = 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_1 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Mobile/14A403 NetType/WIFI Language/zh_CN'
 app = 'HuaWei-AnyOffice/1.0.0/cn.edu.hit.welink'
 option = webdriver.ChromeOptions()
 option.headless = True
 option.add_argument('user-agent='+ua)
 s=Service("/usr/bin/chromedriver")
-driver = webdriver.Chrome(service=s)
+driver = webdriver.Chrome(service=s,options=option)
 
 print('正在上报')
+
+driver.execute_cdp_cmd(
+    "Browser.grantPermissions",
+    {
+        "origin": "https://xg.hit.edu.cn/zhxy-xgzs/xg_mobile/xsMrsbNew/edit",
+        "permissions": ["geolocation"]
+    },
+)
+driver.execute_cdp_cmd("Emulation.setGeolocationOverride", {
+	"latitude": Location[0],
+	"longitude": Location[1],
+	"accuracy": 100
+})
+
+driver.get('https://ids.hit.edu.cn/authserver/login')
+sleep(3)
+driver.find_element(By.ID, 'username').send_keys(USERNAME)
+sleep(3)
+driver.find_element(By.ID,'password').send_keys(PASSWORD)
+sleep(3)
+driver.find_element(By.ID,'login_submit').click()
+
 
 def tryClick(id):
 	try:
@@ -71,21 +95,24 @@ def yzm():
 		print(e)
 
 success = False
-for i in range (0, 5):
+for i in range (0, 1):
 	try:
 		driver.get('https://xg.hit.edu.cn/zhxy-xgzs/xg_mobile/xsMrsbNew/edit')
+		driver.maximize_window()
+		driver.set_window_size(800, 1200)
+		js = "window.scrollBy(0,500);"
+		driver.execute_script(js)
+		time.sleep(5)
+		driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[2]/div/div/div/div[17]/div[2]/div/div/span').click()
 		sleep(5)
-		driver.find_element(By.ID, 'username').send_keys(USERNAME)
-		driver.find_element(By.ID,'password').send_keys(PASSWORD)
-		driver.find_element(By.ID,'login_submit').click()
-		driver.execute_script(f'kzl10 = "{LOCATION}"')
-# 		driver.execute_script('document.getElementById("kzl18-0").checked = true')
-# 		driver.execute_script('document.getElementById("kzl32-2").checked = true')
 		tryClick("txfscheckbox1")
 		tryClick("txfscheckbox2")
 		tryClick("txfscheckbox3")
 		sleep(5)
-		driver.find_element(By.CLASS_NAME, 'submit').click()
+		js = "window.scrollBy(0,1500);"
+		driver.execute_script(js)
+		a=driver.find_element(By.XPATH,"/html/body/div[2]/div[2]/div[2]/div/div/div[1]/div[66]/div/div/span[1]")
+		driver.execute_script("arguments[0].click();",a)
 		sleep(5) # 防止有验证码没加载
 		yzm()
 		success = True
